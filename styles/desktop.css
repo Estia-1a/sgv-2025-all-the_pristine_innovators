@@ -1,3 +1,6 @@
 container {
     flex-direction: row
 }
+body {
+    background-color: #ccffcc;
+}
