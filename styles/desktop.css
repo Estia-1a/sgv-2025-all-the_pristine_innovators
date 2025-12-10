@@ -24,3 +24,9 @@ body {
 .fit-picture1 {
     margin-right: 10px;
 } 
+.cadre-simple {
+    border: 1px solid black;
+    padding: 15px;
+}
+
+
