@@ -1,12 +1,12 @@
 .container0 {
   border: 5px solid black;
   width: 98%;
-  height: 500px;
+  height: 300px;
   margin: 6px auto;
 }
 .box {
   min-width: 50px;
-  min-height: 50px;
+  min-height: 300px;
 }
 .green { background: rgb(18, 111, 18); }
 
