@@ -1,6 +1,9 @@
 .container {
     display: flex;
-    flex-direction: row
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 body {
     background-color: #ccffcc;
@@ -8,10 +11,16 @@ body {
 .fit-picture {
     width: 150px;
     height: 150px;
-    object-fit: cover; /* évite la déformation */
+    object-fit: cover; 
 }
 .fit-picture1 {
     width: 225px;
     height: 150px;
-    object-fit: cover; /* évite la déformation */
+    object-fit: cover; 
 }
+.fit-picture{
+    margin-right: 1px;
+}
+.fit-picture1 {
+    margin-right: 10px;
+} 
