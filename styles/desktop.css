@@ -24,9 +24,12 @@ body {
 .fit-picture1 {
     margin-right: 10px;
 } 
-.cadre-simple {
-    border: 1px solid black;
-    padding: 15px;
+.cadre {
+    border: 2px solid #333;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    background-color: #30a836;
 }
 
 
