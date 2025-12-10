@@ -5,19 +5,19 @@
     margin-left: 100px;
     margin-right: 100px;
 }
-
+ 
 body {
     background-color: #ccffcc;
 }
 .fit-picture {
     width: 150px;
     height: 150px;
-    object-fit: cover; 
+    object-fit: cover;
 }
 .fit-picture1 {
     width: 225px;
     height: 150px;
-    object-fit: cover; 
+    object-fit: cover;
 }
 .fit-picture{
     margin-right: 1px;
