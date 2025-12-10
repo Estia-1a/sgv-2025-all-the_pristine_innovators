@@ -1,14 +1,14 @@
 .container {
-  border: 2px solid black;
-  width: 80%;
-  height: 200px;
-  margin: 20px auto;
+  border: 5px solid black;
+  width: 98%;
+  height: 500px;
+  margin: 6px auto;
 }
 .box {
   min-width: 50px;
   min-height: 50px;
 }
-.green { background: green; }
+.green { background: rgb(18, 111, 18); }
 
 .container1 {
     display: flex;
