@@ -19,8 +19,9 @@ body {
 }
 
 .logo {
-    width: 20px;
-    height: 20px;
+    width: 80px;
+    height: 80px;
+    object-fit: contain
 }
 
 .entete h1 {
