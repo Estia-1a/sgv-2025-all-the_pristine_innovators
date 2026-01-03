@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/mobile.css" media="screen and (max-width: 768px)">
+    <link rel="stylesheet" href="styles/mobile.css">
+    <link rel="stylesheet" href="styles/mobile.css" media="screen and (max-width: 768px)"
+
     <title>La-Cagette-Folle</title>
 
 </head>
@@ -11,13 +13,117 @@
     <header class="entete">
         <img class="logo" src="media/pictures/logo-cagette.png" alt="Logo La Cagette Folle">
     <h1>La Cagette Folle</h1>
-    </div>
-    </header>
+   
+</header>
     
     <main>
-        <h2>Panier</h2>
+        <h2>🛒 Mon Panier</h2>
+    
+        <div class="panier-container" id="panierContainer">
+            <!-- Les produits seront ajoutés ici par JavaScript -->
+        </div>
+
+        <div class="total-container">
+            <div class="total-label">Total</div>
+            <div class="total-montant" id="totalMontant">0.00 €</div>
+        </div>
+
+        <button class="btn-commander" onclick="validerCommande()">Valider la commande</button>
     
     </main>
+
+     <script>
+        // Données des produits
+        let produits = [
+            { id: 1, nom: 'Poires', prix: 3.50, quantite: 2, unite: 'kg' },
+            { id: 2, nom: 'Carottes', prix: 2.20, quantite: 1, unite: 'kg' },
+            { id: 3, nom: 'Pommes ', prix: 2.80, quantite: 3, unite: 'kg' },
+            { id: 4, nom: 'Cerises', prix: 1.50, quantite: 2, unite: 'pièce' },
+            { id: 5, nom: 'Courgettes', prix: 2.90, quantite: 1, unite: 'kg' }
+        ];
+
+        // Fonction pour afficher les produits
+        function afficherProduits() {
+            const container = document.getElementById('panierContainer');
+            
+            if (produits.length === 0) {
+                container.innerHTML = '<div class="panier-vide">Votre panier est vide</div>';
+                document.getElementById('totalMontant').textContent = '0.00 €';
+                return;
+            }
+
+            container.innerHTML = '';
+            
+            produits.forEach(produit => {
+                const prixTotal = (produit.prix * produit.quantite).toFixed(2);
+                
+                const produitDiv = document.createElement('div');
+                produitDiv.className = 'produit-item';
+                produitDiv.innerHTML = `
+                    <div class="produit-info">
+                        <div class="produit-nom">${produit.nom}</div>
+                        <div class="produit-prix-unitaire">${produit.prix.toFixed(2)} € / ${produit.unite}</div>
+                    </div>
+                    <div class="produit-controls">
+                        <div class="quantite-controls">
+                            <button class="btn-quantite" onclick="diminuerQuantite(${produit.id})">−</button>
+                            <span class="quantite-display">${produit.quantite}</span>
+                            <button class="btn-quantite" onclick="augmenterQuantite(${produit.id})">+</button>
+                        </div>
+                        <div class="produit-prix-total">${prixTotal} €</div>
+                        <button class="btn-supprimer" onclick="supprimerProduit(${produit.id})">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(produitDiv);
+            });
+
+            calculerTotal();
+        }
+
+        // Fonction pour augmenter la quantité
+        function augmenterQuantite(id) {
+            const produit = produits.find(p => p.id === id);
+            if (produit) {
+                produit.quantite++;
+                afficherProduits();
+            }
+        }
+
+        // Fonction pour diminuer la quantité
+        function diminuerQuantite(id) {
+            const produit = produits.find(p => p.id === id);
+            if (produit && produit.quantite > 1) {
+                produit.quantite--;
+                afficherProduits();
+            }
+        }
+
+        // Fonction pour supprimer un produit
+        function supprimerProduit(id) {
+            produits = produits.filter(p => p.id !== id);
+            afficherProduits();
+        }
+
+        // Fonction pour calculer le total
+        function calculerTotal() {
+            const total = produits.reduce((sum, p) => sum + (p.prix * p.quantite), 0);
+            document.getElementById('totalMontant').textContent = total.toFixed(2) + ' €';
+        }
+
+        // Fonction pour valider la commande
+        function validerCommande() {
+            if (produits.length === 0) {
+                alert('Votre panier est vide !');
+                return;
+            }
+            const total = produits.reduce((sum, p) => sum + (p.prix * p.quantite), 0);
+            alert(`Commande validée !\nTotal : ${total.toFixed(2)} €\nMerci pour votre achat !`);
+        }
+
+        // Affichage initial
+        afficherProduits();
+    </script>
+
 </body>
 </html>
 

@@ -1,4 +1,4 @@
-{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -31,8 +31,184 @@ body {
     font-family: Arial, sans-serif;
 }
 
+main {
+    padding: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 main h2 {
     color: #2d5016;
     font-family: Arial, sans-serif;
     margin-bottom: 20px;
 }
+.panier-container {
+    margin-bottom: 30px;
+}
+
+.produit-item {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.produit-info {
+    flex: 1;
+}
+
+.produit-nom {
+    color: #2d5016;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.produit-prix-unitaire {
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* =============================================
+   CONTRÔLES DES PRODUITS
+   ============================================= */
+.produit-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.quantite-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.btn-quantite {
+    border: none;
+    background-color: #90EE90;
+    color: #2d5016;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-quantite:hover {
+    background-color: #7fd87f;
+}
+
+.quantite-display {
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
+}
+
+.produit-prix-total {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #2d5016;
+    min-width: 80px;
+    text-align: right;
+}
+
+.btn-supprimer {
+    border: none;
+    background-color: #ff6b6b;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-supprimer:hover {
+    background-color: #ff5252;
+}
+
+.total-container {
+    background-color: #90EE90;
+    padding: 25px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+}
+
+.total-label {
+    color: #2d5016;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.total-montant {
+    font-size: 2em;
+    font-weight: bold;
+    color: #2d5016;
+}
+
+.btn-commander {
+    width: 100%;
+    padding: 18px;
+    background-color: #228B22;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-commander:hover {
+    background-color: #1a6b1a;
+}
+
+.panier-vide {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .entete h1 {
+        font-size: 1.8em;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .produit-item {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .produit-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
