@@ -3,55 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-    <link rel="stylesheet" href="styles/desktop.css" media="screen and (min-width: 768px)">
-     <title>La-Cagette-Folle</title>
+        <link rel="stylesheet" href="styles/desktop.css">
+    <title>La Cagette Folle</title>
 </head>
-   
 <body>
-    <div class="container0">
-        <div class="box green">
-            <h1>Bienvenue!!</h1>
-        </div>
-    </div>
-   
-    <h2>Notre sélection de fruits et légumes</h2>
-   
-    <div class="container1">
-    <div class="ligne-images" id="ligne-fruits">
-       
-        <h3>Fruits</h3>
-        <div class="poire">
-            <img class="fit-picture" src="media\pictures/Poire.jpg" alt="Image de poire">
-            <input type="number" name="quantité-poire" min="0" max="5" value="0">
-        </div>
-        <div class="cerise">
-            <img class="fit-picture" src="media\pictures/Cerise.jpg" alt="Image de cerise">
-            <input type="number" name="quantité-cerise" min="0" max="5" value="0">
-        </div>
-        <div class="pomme">
-            <img class="fit-picture" src="media\pictures/Pomme.avif" alt="Image de pomme">
-            <input type="number" name="quantité-pomme" min="0" max="5" value="0"> 
-        </div>
-        
+    <header class="entete">
+        <img class="logo" src="media/pictures/logo-cagette.png" alt="Logo La Cagette Folle">
+        <div class="logo" style="display: none;">🛒</div>
+        <h1>La Cagette Folle</h1>
+    </header>
+    
+    <main>
+        <div class="panier-navigation">
+            <a href="panier.html" class="btn-panier">
+                🛒 Panier
+                <span class="badge-panier" id="badgePanier">0</span>
+            </a>
         </div>
 
-    <div class="ligne-images" id="ligne-légumes">
-        
-        <h4>Légumes</h4>
-        <div class="courgette">
-            <img class="fit-picture1" src="media\pictures/Courgette.jpg" alt="Image de courgette">
-            <input type="number" name="quantité-courgette" min="0" max="5" value="0">
-        </div>
-        <div class="carotte">
-            <img class="fit-picture" src="media\pictures/Carotte.jpg" alt="Image de carotte">
-            <input type="number" name="quantité-carotte" min="0" max="5" value="0">
-        </div>
+        <h2 class="section-titre">🍎 Fruits</h2>
+        <div class="produits-grid" id="fruitsList"></div>
 
-        </div>
-    </div>
-   
-   
+        <h2 class="section-titre">🥕 Légumes</h2>
+        <div class="produits-grid" id="legumesList"></div>
+    </main>
+
+    <script>
+        // Catalogue de produits
+        const catalogue = {
+            fruits: [
+                { id: 'pomme', nom: 'Pommes ', emoji: '🍎', prix: 2.80, unite: 'kg' },
+                { id: 'poire', nom: 'Poires', emoji: '🍐', prix: 3.50, unite: 'kg' },
+                { id: 'cerises', nom: 'Cerises', emoji: '🍒', prix: 1.50, unite: 'kg' }
+            ],
+            legumes: [
+                { id: 'carottes', nom: 'Carottes', emoji: '🥕', prix: 2.20, unite: 'kg' },
+                { id: 'courgettes', nom: 'Courgettes', emoji: '🥒', prix: 2.90, unite: 'kg' },
+            ]
+        };
+
+        // Quantités sélectionnées
+        let quantites = {};
+
+        // Initialiser les quantités à 0
+        [...catalogue.fruits, ...catalogue.legumes].forEach(produit => {
+            quantites[produit.id] = 0;
+        });
+
+        // Fonction pour créer une carte produit
+        function creerCarteProduit(produit) {
+            return `
+                <div class="produit-card">
+                    <div class="produit-emoji">${produit.emoji}</div>
+                    <div class="produit-nom">${produit.nom}</div>
+                    <div class="produit-prix">${produit.prix.toFixed(2)} € / ${produit.unite}</div>
+                    <div class="quantite-section">
+                        <div class="quantite-controls">
+                            <button class="btn-quantite" onclick="diminuerQuantite('${produit.id}')" ${quantites[produit.id] === 0 ? 'disabled' : ''}>−</button>
+                            <span class="quantite-display" id="qty-${produit.id}">${quantites[produit.id]}</span>
+                            <button class="btn-quantite" onclick="augmenterQuantite('${produit.id}')">+</button>
+                        </div>
+                        <button class="btn-ajouter" onclick="ajouterAuPanier('${produit.id}')" ${quantites[produit.id] === 0 ? 'disabled' : ''}>
+                            Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Afficher les produits
+        function afficherProduits() {
+            document.getElementById('fruitsList').innerHTML = catalogue.fruits.map(creerCarteProduit).join('');
+            document.getElementById('legumesList').innerHTML = catalogue.legumes.map(creerCarteProduit).join('');
+        }
+
+        // Augmenter la quantité
+        function augmenterQuantite(id) {
+            quantites[id]++;
+            mettreAJourAffichage(id);
+        }
+
+        // Diminuer la quantité
+        function diminuerQuantite(id) {
+            if (quantites[id] > 0) {
+                quantites[id]--;
+                mettreAJourAffichage(id);
+            }
+        }
+
+        // Mettre à jour l'affichage
+        function mettreAJourAffichage(id) {
+            const qtyDisplay = document.getElementById(`qty-${id}`);
+            if (qtyDisplay) {
+                qtyDisplay.textContent = quantites[id];
+            }
+            afficherProduits();
+        }
+
+        // Ajouter au panier
+        function ajouterAuPanier(id) {
+            if (quantites[id] === 0) return;
+
+            // Récupérer le panier existant
+            let panier = JSON.parse(localStorage.getItem('panier') || '[]');
+            
+            // Trouver le produit
+            const produit = [...catalogue.fruits, ...catalogue.legumes].find(p => p.id === id);
+            
+            // Vérifier si le produit existe déjà dans le panier
+            const index = panier.findIndex(p => p.id === id);
+            
+            if (index !== -1) {
+                // Augmenter la quantité
+                panier[index].quantite += quantites[id];
+            } else {
+                // Ajouter le nouveau produit
+                panier.push({
+                    id: produit.id,
+                    nom: produit.nom,
+                    prix: produit.prix,
+                    quantite: quantites[id],
+                    unite: produit.unite
+                });
+            }
+            
+            // Sauvegarder dans localStorage
+            localStorage.setItem('panier', JSON.stringify(panier));
+            
+            // Réinitialiser la quantité
+            quantites[id] = 0;
+            
+            // Mettre à jour l'affichage
+            mettreAJourAffichage(id);
+            mettreAJourBadgePanier();
+            
+            // Afficher un message
+            alert(`${produit.nom} ajouté(s) au panier !`);
+        }
+
+        // Mettre à jour le badge du panier
+        function mettreAJourBadgePanier() {
+            const panier = JSON.parse(localStorage.getItem('panier') || '[]');
+            const total = panier.reduce((sum, p) => sum + p.quantite, 0);
+            document.getElementById('badgePanier').textContent = total;
+        }
+
+        // Initialisation
+        afficherProduits();
+        mettreAJourBadgePanier();
+    </script>
 </body>
-acheter des légumes frais
 </html>
